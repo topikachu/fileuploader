@@ -5,20 +5,23 @@ angular.module('bvFileUploaderApp')
 		return {
 			restrict: 'A',
 			require: '?ngModel',
+
 			link: function(scope, element, attrs, ngModel) {
 
 				if (!ngModel) {
 					return;
 				}
 
-				var options = scope.$eval(attrs.bvFileUploader)
-				if (!options) {
-					var options = {};
+				var name = attrs.name;
+				if (!name){
+					name='files';
 				}
-				options = angular.extend({
-					url: 'api/upload',
-					filedName: 'files'
-				}, options);
+
+				var url= attrs.bvFileUploader;
+				if (!url) {
+					url='api/upload';
+				}
+				
 				element.bind('change', function(e) {
 
 
@@ -30,19 +33,15 @@ angular.module('bvFileUploaderApp')
 							var item = {
 								data: e.target.files[i],
 								submit: function() {
-									return $http({
-										method: 'POST',
-										url: options.url,
-										data: this.data,
+									var fd = new FormData();
+									fd.append(name, this.data);
+									return $http.post(url, fd, {
+										transformRequest: angular.identity,
 										headers: {
 											'Content-Type': undefined
-										},
-										transformRequest: function(data) {
-											var formData = new FormData();
-											formData.append(options.filedName, data);
-											return formData;
 										}
 									});
+
 								}
 							};
 							(function(item) {

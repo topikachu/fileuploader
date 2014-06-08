@@ -22,11 +22,11 @@
     <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
         <i class="glyphicon glyphicon-plus"></i>
         <span>Add files...</span>
-        <input type="file" accept="image/*" bv-file-uploader="options" multiple ng-model="files" ng-disabled="disabled" />
+        <input type="file" name="image" accept="image/*" bv-file-uploader="api/upload" multiple ng-model="files" ng-disabled="disabled" />
     </span>
 </div>
 <button ng-click="submit()">submit</button>
-<div ng-repeat="f in files">
+<div ng-repeat="f in files" class="preview">
     {{$index}}
     <img ng-src="{{f.preview}}"></img>
 </div>
