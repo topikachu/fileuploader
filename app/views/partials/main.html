@@ -1,22 +1,35 @@
 <div ng-include="'partials/navbar'"></div>
 
 <div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
+    <h1>'Allo, 'Allo!</h1>
+    <p class="lead">
+        <img src="images/yeoman.png" alt="I'm Yeoman">
+        <br>Always a pleasure scaffolding your apps.
+    </p>
+    <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a>
+    </p>
 </div>
 
 <div class="row marketing">
-  <div ng-repeat="thing in awesomeThings">
-      <h4>{{thing.name}}</h4>
-      <p>{{thing.info}}</p>
-  </div>
+    <div ng-repeat="thing in awesomeThings">
+        <h4>{{thing.name}}</h4>
+        <p>{{thing.info}}</p>
+    </div>
 </div>
-<input type="file" name="a"  accept="image/*" bv-file-uploader="options" ng-model="files" />
+
+<div class="row fileupload-buttonbar">
+
+    <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Add files...</span>
+        <input type="file" accept="image/*" bv-file-uploader="options" multiple ng-model="files" ng-disabled="disabled" />
+    </span>
+</div>
 <button ng-click="submit()">submit</button>
+<div ng-repeat="f in files">
+    {{$index}}
+    <img ng-src="{{f.preview}}"></img>
+</div>
 <div class="footer">
-  <p>♥ from the Yeoman team</p>
+    <p>♥ from the Yeoman team</p>
 </div>
